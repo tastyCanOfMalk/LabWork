@@ -22,6 +22,21 @@ export class DealerInventoryComponent {
     }
   }
 
+  addVehicle(v:Vehicle) {
+    this.inventory.push(v)
+  }
+
+  vehicleToEdit?:Vehicle
+
+  beginEditing(v:Vehicle){
+    this.vehicleToEdit = v;
+  }
+
+  commitEdit(v:Vehicle){
+    Object.assign(this.vehicleToEdit!, v)
+    this.vehicleToEdit = undefined
+  }
+
   inventory:Vehicle[] = [
     {
       VIN: "Y123",

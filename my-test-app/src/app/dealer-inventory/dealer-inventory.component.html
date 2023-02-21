@@ -1,5 +1,7 @@
 <h1>Current Inventory</h1>
 
+<app-vehicle-form (on-submit)="addVehicle($event)"></app-vehicle-form>
+
 <p *ngIf="inventory.length==0">there are no cars in inventory</p>
 
 <div *ngFor="let car of inventory; trackBy: trackByVIN"
@@ -9,15 +11,20 @@
     <p class="gallery">
         <app-photo-gallery 
             (on-navigate)="handlePhotoNavigation($event, car)"
-            *ngIf="car.photos.length > 0" 
-            [photos]="car.photos">
-        </app-photo-gallery>
+            *ngIf="car.photos.length > 0" [photos]="car.photos">
+        </app-photo-gallery>    
     </p>
 
     <p *ngIf="car.featured">Featured car of the month!</p>
     <p>VIN: {{car.VIN}}</p>
     <p>{{car.mileage}} miles, ${{car.price}}</p>
+
+    <app-vehicle-form
+        *ngIf="vehicleToEdit == car" [vehicle]="car" (on-submit)="commitEdit($event)">
+    </app-vehicle-form>
+
     <p>
         <button (click)="deleteVehicle(car)">Delete</button>
+        <button (click)="beginEditing(car)">Edit</button>  
     </p>
 </div>
