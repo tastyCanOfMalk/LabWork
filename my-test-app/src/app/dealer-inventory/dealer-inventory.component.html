@@ -17,7 +17,7 @@
 
     <p *ngIf="car.featured">Featured car of the month!</p>
     <p>VIN: {{car.VIN}}</p>
-    <p>{{car.mileage}} miles, ${{car.price}}</p>
+    <p>{{car.mileage | number:'':'fr'}} miles, {{car.price | currency:'EUR':'symbol':'':'fr'}}</p>
 
     <app-vehicle-form-reactive
         *ngIf="vehicleToEdit == car" [vehicle]="car" (on-submit)="commitEdit($event)">
