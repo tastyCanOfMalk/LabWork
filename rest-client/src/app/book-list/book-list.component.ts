@@ -22,8 +22,14 @@ export class BookListComponent {
     if(!window.confirm('Really want to delete?')) {
       return
     }
-    this.dataService.deleteBook(book.isbn).subscribe(_ => {
-      this.books = this.books.filter(b => b.isbn !== book.isbn)
+    this.dataService.deleteBook(book.isbn).subscribe({
+      next: (_) => {
+        // delete local copy
+        this.books = this.books.filter(b => b.isbn !== book.isbn)
+      },
+      error: (err) => {
+        alert(err)
+      }
     })
   }
 
