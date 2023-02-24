@@ -11,6 +11,14 @@ import { DataService, Book } from '../data.service';
 export class BookListComponent {
   constructor(private dataService: DataService){}
   books:Book[] = []
+  page = 1;
+  pageSize = 4;
+  
+  getDisplayList(): Book[] {
+    return this.books.slice(
+      (this.page-1) * this.pageSize, this.page * this.pageSize
+    )
+  }
 
   ngOnInit(){
     this.dataService.getBooks().subscribe(bookList => {
